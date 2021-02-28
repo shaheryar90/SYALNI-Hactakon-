@@ -4,10 +4,11 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import 'react-native-gesture-handler';
 import  Login from '../stack-auth/login';
-import  Register from '../stack-auth/register';
-import  ForgotPassword from '../stack-auth/forgotPassword';
+// import  RegisterStudent from '../stack-auth/RegisterStudent';
+// import  ForgotPassword from '../stack-auth/forgotPassword';
 import Navigation from './navigation ';
 import Home from '../navigation/stack';
+
 
 
 

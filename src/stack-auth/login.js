@@ -1,11 +1,12 @@
 import React from 'react';
-import { Button, View,TextInput ,StyleSheet, TouchableOpacity,Text,Image,ImageBackground} from 'react-native';
+import { Button, View,TextInput ,StyleSheet, TouchableOpacity,Text,Image,ImageBackground,ScrollView} from 'react-native';
 import GetScreenHeight from '../config/height'
 import GetScreenWidth from '../config/width'
 import DropDownPicker from 'react-native-dropdown-picker';
+import Icon from 'react-native-vector-icons/Ionicons';
 import database from '@react-native-firebase/database';
 
-import firebase from '@react-native-firebase/app';
+// import firebase from '@react-native-firebase/app';
 export default class Login extends React.Component {
   constructor(props){
       super(props)
@@ -23,30 +24,45 @@ export default class Login extends React.Component {
       email:this.state.email,
       password:this.state.password
     }
+
+    
+    // firebase.initializeApp(config);
     this.props.navigation.navigate("Navigation")
+    alert("successfully login")
     console.log("users==>",users)
     
-     const reference=database().ref('/').child('users').push(users)
-    console.log('Auto Generated key: ',reference)
+    //  const reference=database().ref('/').child('users').push(users)
+    // console.log('Auto Generated key: ',reference)
     
       }
 render(){
   return(
-      
+    <>
+    <View>
+     <Image style={{width:'100%',height:250}} source={{uri:"https://av.sc.com/corp-en/content/images/Working_with_us_v2.jpg"}} />
+    </View>
+
+<ScrollView style={{flex:1}}>
+    <ImageBackground style={{width:'100%',height:GetScreenHeight(80)}} source={{uri:'https://images.pexels.com/photos/255379/pexels-photo-255379.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'}}>
       <View  style={styles.RegisterView}>
     
 
- <View style={{flexDirection:'row'}}>
+ <View style={{flexDirection:'row',marginBottom:10}}>
    <View style={{flex:1}}>
-   <Image style={{height:100,width:100 }} source={{uri:'https://repository-images.githubusercontent.com/152029248/bdcac480-f326-11e9-8aa5-dafa9940739b'}}/>
+   <Icon
+                style={styles.icon}
+                name="person"
+                size={50}
+                color="red"
+              />
    </View>
-   <View  style={{flex:2,marginTop:20,alignSelf:'center'}}><Text style={{fontSize:40,justifyContent:'center'}}>Login</Text></View>
+   <View  style={{flex:2,alignSelf:'center'}}><Text style={{fontSize:40,justifyContent:'center'}}>Login</Text></View>
  </View>
       <View style={{justifyContent:"center",alignItems:"center",marginTop:10}}>
       <TextInput  onChangeText={(text)=>this.setState({email:text})} placeholder="Mobile Number or Email Address"  style={styles.EmailAddress}/>
       </View>
       <View style={{justifyContent:"center",alignItems:"center",marginVertical:10}}>
-      <TextInput onChangeText={(text)=>this.setState({password:text})} placeholder="Confirm Password"  style={styles.NewPassword}/>
+      <TextInput secureTextEntry={true} onChangeText={(text)=>this.setState({password:text})} placeholder=" Password"  style={styles.NewPassword}/>
       </View>
       
      
@@ -69,12 +85,20 @@ render(){
 
 
 
-
-<TouchableOpacity onPress={()=>this.props.navigation.navigate("Register")} style={styles.RegisterButton}>
-  <Text style={{color:'white',fontSize:20,fontWeight:'bold'}}>Register</Text>
+<View style={{justifyContent:'center',alignSelf:'center',alignSelf:'center'}}><Text style={{color:'red',fontSize:20}}>Register As A </Text></View>
+<TouchableOpacity onPress={()=>this.props.navigation.navigate("RegisterStudent")} style={styles.RegisterButton}>
+  <Text style={{color:'white',fontSize:20,fontWeight:'bold'}}>Student</Text>
+</TouchableOpacity>
+<TouchableOpacity onPress={()=>this.props.navigation.navigate("RegisterCompany")} style={styles.RegisterButton}>
+  <Text style={{color:'white',fontSize:20,fontWeight:'bold'}}>Company</Text>
+</TouchableOpacity>
+<TouchableOpacity  onPress={()=>this.props.navigation.navigate("RegisterAdmin")} style={styles.RegisterButton}>
+  <Text style={{color:'white',fontSize:20,fontWeight:'bold'}}>Admin</Text>
 </TouchableOpacity>
       </View>
-    
+      </ImageBackground>
+      </ScrollView>
+    </> 
     );
   }
 
@@ -114,14 +138,15 @@ render(){
        borderWidth:2,
        borderColor:"grey",
        borderColor:'red',
-       padding:10,
+  
        width:GetScreenWidth(90),
-       height:GetScreenHeight(55),
+      //  height:GetScreenHeight(85),
        justifyContent:"center",
 alignSelf:"center",
 justifyContent:"center",
-marginTop:80,
+marginTop:40,
 borderRadius:20,
+padding:20
 
     },
     RegisterButton:{
@@ -132,7 +157,10 @@ borderRadius:20,
       alignSelf:"stretch",
       borderRadius:10,
       width:GetScreenWidth(80),
-      margin:10
+      
+      marginVertical:10
+      
+
   
     }
   })

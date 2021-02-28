@@ -7,9 +7,10 @@ import  HomeScreen from '../screens/Home';
 import { createStackNavigator } from '@react-navigation/stack';
 import Donate from '../screens/donation' ;
 import AuthorizeDrawer from '../navigation/customizeDrawer';
-import DonateRegister1 from '../stack-auth/DonateRegister';
+import JobDetail from '../stack-auth/JobDetail';
+// import PostJob from '../stack-auth/PostJob';
 import DropDownPicker from 'react-native-dropdown-picker';
-import Donor from '../screens/donor Details'
+import PostJob from '../screens/PostJob'
 import Login from '../stack-auth/login';
 import Home from '../navigation/stack';
 import MapComponent from '../stack-auth/map';
@@ -21,27 +22,27 @@ const Drawer = createDrawerNavigator();
 
 const Stack = createStackNavigator();
 
-function DonateRegister() {
-  return (
-    <Stack.Navigator>
-     <Stack.Screen name="Donate" options={{headerShown:false}} component={Donate} />
-    <Stack.Screen name="DonateRegister" options={{headerShown:false}}  component={currentLocation} />
-    {/* <Stack.Screen name="DonateRegister"  component={MapComponent} /> */}
+// function DonateRegister() {
+//   return (
+//     <Stack.Navigator>
+//      <Stack.Screen name="Donate" options={{headerShown:false}} component={Donate} />
+//     <Stack.Screen name="DonateRegister" options={{headerShown:false}}  component={currentLocation} />
+//     {/* <Stack.Screen name="DonateRegister"  component={MapComponent} /> */}
     
-    </Stack.Navigator>
-  );
-}
+//     </Stack.Navigator>
+//   );
+// }
 
-function currentLocation() {
-  return (
-    <Stack.Navigator>
-      {/* <Stack.Screen initialRoot={Login} component={Login} /> */}
-      <Stack.Screen name="DonateRegister" options={{headerShown:false}} component={DonateRegister1} />
-      <Stack.Screen name="Map"  options={{headerShown:false}} component={MapComponent} />
+// function currentLocation() {
+//   return (
+//     <Stack.Navigator>
+//       {/* <Stack.Screen initialRoot={Login} component={Login} /> */}
+//       <Stack.Screen name="DonateRegister" options={{headerShown:false}} component={DonateRegister1} />
+//       <Stack.Screen name="Map"  options={{headerShown:false}} component={MapComponent} />
 
-    </Stack.Navigator>
-  );
-}
+//     </Stack.Navigator>
+//   );
+// }
 
 // function logOut() {
 //   return (
@@ -69,8 +70,8 @@ export default function Navigation() {
         itemStyle:{},
       }}>
         <Drawer.Screen name="Home" component={HomeScreen} />
-        <Drawer.Screen name="Donation" component={DonateRegister} />
-        <Drawer.Screen name="Donor Detail" component={Donor} />
+        <Drawer.Screen name="JobDetail" component={JobDetail} />
+        <Drawer.Screen name="PostJob" component={PostJob} />
         <Drawer.Screen name="Logout" component={Home} />
       </Drawer.Navigator>
     // </NavigationContainer>

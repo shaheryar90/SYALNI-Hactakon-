@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "1011325161164",
+    "project_id": "practice-fa246",
+    "storage_bucket": "practice-fa246.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1011325161164:android:e07fb7d16c02660621bc69",
+        "android_client_info": {
+          "package_name": "com.myapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1011325161164-ubkbulkqt3iiar41e7j4n84775tno2ku.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAj1YAf6EXVJYNozP3G14Tq8zbxKiyFuS0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1011325161164-ubkbulkqt3iiar41e7j4n84775tno2ku.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1011325161164:android:797435ab54febc4721bc69",
+        "android_client_info": {
+          "package_name": "com.ponka"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1011325161164-ubkbulkqt3iiar41e7j4n84775tno2ku.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAj1YAf6EXVJYNozP3G14Tq8zbxKiyFuS0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1011325161164-ubkbulkqt3iiar41e7j4n84775tno2ku.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
