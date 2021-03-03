@@ -40,31 +40,74 @@ export default class Job extends React.Component {
       allJobs: [],
     };
   }
+  deleteKey = (id) => {
+    console.log(id);
+    database()
+      .ref('/Admin/company/Jobs/')
+      .child(id)
+      .remove()
+      .then(() => {
+        var allCompanyJobs = [];
+        database()
+          .ref('/Admin/company/Jobs/')
+          .once('value')
+          .then((snapshot) => {
+            console.log('User data:===> ', snapshot.val());
+            var dbData = snapshot.val();
+            for (var key in dbData) {
+              dbData[key].id = key;
+              allCompanyJobs.push(dbData[key]);
+            }
+            console.log('sdadasdas', allCompanyJobs);
+            this.setState({
+              allJobs: allCompanyJobs,
+            });
+          });
+      });
+  };
 
   Item = ({item, i}) => {
     console.log(item);
     return (
-      <TouchableOpacity
+      <View
         key={i}
         style={{
           borderColor: 'grey',
           // borderWidth: 2,
-          marginBottom: 40,
           shadowColor: '#000',
           shadowOffset: {
             width: 0,
-            height: 5,
+            height: 3,
           },
-          shadowOpacity: 0.36,
-          shadowRadius: 6.68,
+          shadowOpacity: 0.27,
+          shadowRadius: 4.65,
 
-          elevation: 11,
+          elevation: 6,
           height: 400,
           padding: 20,
+          backgroundColor: 'white',
           // justifyContent: 'center',
           // alignItems: 'center',
+          margin: 20,
+          borderRadius: 10,
         }}>
-        <Text style={{fontSize: 20, marginTop: 10}}>Company Name:</Text>
+        <View style={{flexDirection: 'row'}}>
+          <View
+            style={{
+              justifyContent: 'space-around',
+              width: GetScreenWidth(70),
+            }}>
+            <Text style={{fontSize: 20}}>Company Name:</Text>
+          </View>
+          <TouchableOpacity onPress={() => this.deleteKey(item.id)}>
+            <Icon
+              style={styles.icon}
+              name="trash-sharp"
+              size={25}
+              color="red"
+            />
+          </TouchableOpacity>
+        </View>
         <Text style={{fontSize: 20, marginTop: 10, color: 'red'}}>
           {item.companyName}
         </Text>
@@ -87,7 +130,7 @@ export default class Job extends React.Component {
         <Text style={{fontSize: 20, marginTop: 10, color: 'red'}}>
           {item.field}
         </Text>
-      </TouchableOpacity>
+      </View>
     );
   };
 
@@ -100,6 +143,7 @@ export default class Job extends React.Component {
         console.log('User data:===> ', snapshot.val());
         var dbData = snapshot.val();
         for (var key in dbData) {
+          dbData[key].id = key;
           allCompanyJobs.push(dbData[key]);
         }
         console.log('sdadasdas', allCompanyJobs);
@@ -112,27 +156,26 @@ export default class Job extends React.Component {
   render() {
     console.log('key', this.state.allJobs);
     return (
-      <>
-        <View
-          style={{
-            flexDirection: 'row',
-            marginTop: 10,
-            marginLeft: 20,
-            flex: 1,
-            width: GetScreenWidth(90),
-            justifyContent: 'space-between',
-          }}>
-          <SafeAreaView style={styles.container}>
-            {this.state.allJobs.length !== 0 ? (
-              <FlatList
-                data={this.state.allJobs}
-                renderItem={this.Item}
-                keyExtractor={(item) => item.id}
-              />
-            ) : null}
-          </SafeAreaView>
+      <View
+        style={{
+          flexDirection: 'row',
+          // marginLeft: 20,
+          flex: 1,
+          // width: GetScreenWidth(90),
+          width: '100%',
+          justifyContent: 'center',
+          backgroundColor: 'white',
+        }}>
+        <View style={styles.container}>
+          {this.state.allJobs.length !== 0 ? (
+            <FlatList
+              data={this.state.allJobs}
+              renderItem={this.Item.bind(this)}
+              keyExtractor={(item) => item.id}
+            />
+          ) : null}
         </View>
-      </>
+      </View>
     );
   }
 }
@@ -140,5 +183,7 @@ export default class Job extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // justifyContent: 'center',
+    width: '100%',
   },
 });
