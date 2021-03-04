@@ -19,6 +19,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import Header from '../header/header';
 import database from '@react-native-firebase/database';
 import Icon from 'react-native-vector-icons/Ionicons';
+import EditJob from '../modal/modal';
 
 export default class Job extends React.Component {
   constructor(props) {
@@ -31,17 +32,13 @@ export default class Job extends React.Component {
       position: '',
       Qualification: '',
       field: '',
-      companyNamec: '',
-      emailc: '',
-      passwordc: '',
-      positionc: '',
-      Qualificationc: '',
-      fieldc: '',
+      showEditJobModal: false,
+      item: {},
       allJobs: [],
     };
   }
   deleteKey = (id) => {
-    console.log(id);
+    // console.log(id);
     database()
       .ref('/Admin/company/Jobs/')
       .child(id)
@@ -66,8 +63,15 @@ export default class Job extends React.Component {
       });
   };
 
+  ShowEditModal = (item) => {
+    console.log('showeditmodal', item);
+    this.setState({
+      item: item,
+      showEditJobModal: !this.state.showEditJobModal,
+    });
+  };
   Item = ({item, i}) => {
-    console.log(item);
+    // console.log('Data List ', item);
     return (
       <View
         key={i}
@@ -107,6 +111,14 @@ export default class Job extends React.Component {
               color="red"
             />
           </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.ShowEditModal(item)}>
+            <Icon
+              style={styles.icon}
+              name="md-create-outline"
+              size={25}
+              color="red"
+            />
+          </TouchableOpacity>
         </View>
         <Text style={{fontSize: 20, marginTop: 10, color: 'red'}}>
           {item.companyName}
@@ -135,6 +147,14 @@ export default class Job extends React.Component {
   };
 
   componentDidMount() {
+    this.unsubcribed = this.props.navigation.addListener('focus', () => {
+      this.getData();
+    });
+
+    this.getData();
+  }
+
+  getData = () => {
     var allCompanyJobs = [];
     database()
       .ref('/Admin/company/Jobs/')
@@ -151,31 +171,44 @@ export default class Job extends React.Component {
           allJobs: allCompanyJobs,
         });
       });
+  };
+
+  componentWillUnmount() {
+    this.unsubcribed();
   }
 
   render() {
-    console.log('key', this.state.allJobs);
+    // console.log('key');
     return (
-      <View
-        style={{
-          flexDirection: 'row',
-          // marginLeft: 20,
-          flex: 1,
-          // width: GetScreenWidth(90),
-          width: '100%',
-          justifyContent: 'center',
-          backgroundColor: 'white',
-        }}>
-        <View style={styles.container}>
-          {this.state.allJobs.length !== 0 ? (
-            <FlatList
-              data={this.state.allJobs}
-              renderItem={this.Item.bind(this)}
-              keyExtractor={(item) => item.id}
-            />
-          ) : null}
+      <>
+        {this.state.showEditJobModal ? (
+          <EditJob
+            items={this.state.item}
+            showModal={this.ShowEditModal}
+            getData={this.getData}
+          />
+        ) : null}
+        <View
+          style={{
+            flexDirection: 'row',
+            // marginLeft: 20,
+            flex: 1,
+            // width: GetScreenWidth(90),
+            width: '100%',
+            justifyContent: 'center',
+            backgroundColor: 'white',
+          }}>
+          <View style={styles.container}>
+            {this.state.allJobs.length !== 0 ? (
+              <FlatList
+                data={this.state.allJobs}
+                renderItem={this.Item.bind(this)}
+                keyExtractor={(item) => item.id}
+              />
+            ) : null}
+          </View>
         </View>
-      </View>
+      </>
     );
   }
 }

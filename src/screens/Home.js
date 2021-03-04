@@ -41,7 +41,6 @@ export default class HomeScreen extends React.Component {
       ],
     };
   }
-  // other component code ...
 
   render() {
     return (
@@ -65,7 +64,7 @@ export default class HomeScreen extends React.Component {
           onPress={() => this.props.navigation.navigate('JobDetail')}
           style={{marginTop: 10, marginLeft: 10}}>
           <Text style={{color: 'red', fontSize: 20, marginLeft: 10}}>
-            View Job
+            View All Jobs
           </Text>
         </TouchableOpacity>
         <Job navigation={this.props.navigation} />
